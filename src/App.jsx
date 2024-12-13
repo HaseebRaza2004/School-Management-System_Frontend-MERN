@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Home from "./pages/home";
 import Teachers from "./pages/teachers";
@@ -6,7 +6,6 @@ import Courses from "./pages/courses";
 import AboutUs from "./pages/aboutUs";
 
 function App() {
-
   return (
     <>
       <BrowserRouter>

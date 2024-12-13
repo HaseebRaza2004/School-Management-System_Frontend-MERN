@@ -7,6 +7,7 @@ import HowItWorks from "../components/stepsHowItWorks";
 function Home() {
     return (
         <div className="container mx-auto">
+            <Header/>
             <HeroSection1/>
             <Statistics/>
             <HeroSection2/>

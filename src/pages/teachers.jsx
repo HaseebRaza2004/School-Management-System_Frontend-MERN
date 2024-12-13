@@ -1,9 +1,11 @@
+import Header from "../components/header";
 
 function Teachers() {
     return(
-        <div>
-            Teachers
-        </div>
+        <div className=""> 
+        <Header />
+        
+      </div>
     )
 };
 

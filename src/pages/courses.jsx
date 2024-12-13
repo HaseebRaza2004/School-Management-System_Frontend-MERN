@@ -1,10 +1,14 @@
+import Header from "../components/header";
 
 function Courses() {
-    return(
-        <div>
-            Courses
-        </div>
-    )
-};
+  return (
+    <>
+      <div className=""> 
+        <Header />
+        
+      </div>
+    </>
+  );
+}
 
 export default Courses;

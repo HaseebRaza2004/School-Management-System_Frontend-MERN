@@ -1,9 +1,11 @@
+import Header from "../components/header";
 
 function AboutUs() {
     return(
-        <div>
-            AboutUs
-        </div>
+        <div className=""> 
+        <Header />
+        
+      </div>
     )
 };
 
