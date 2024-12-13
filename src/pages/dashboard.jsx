@@ -1,3 +1,4 @@
+import Footer from "../components/footer";
 import Header from "../components/header";
 import Home from "./home";
 
@@ -5,8 +6,9 @@ import Home from "./home";
 function Dashboard() {
     return (
         <>
-        <Header/>
-        <Home/>
+            <Header />
+            <Home />
+            <Footer />
         </>
     )
 };
