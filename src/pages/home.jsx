@@ -3,11 +3,11 @@ import HeroSection2 from "../components/heroSection2";
 import HeroSection3 from "../components/heroSection3";
 import Statistics from "../components/statistics";
 import HowItWorks from "../components/stepsHowItWorks";
-
+import Header from "../components/header";
 function Home() {
     return (
         <div className="container mx-auto">
-            <Header/>
+             <Header />
             <HeroSection1/>
             <Statistics/>
             <HeroSection2/>
