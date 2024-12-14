@@ -4,7 +4,6 @@ function Courses() {
   return (
     <>
       <div className=""> 
-        <Header />
         
       </div>
     </>

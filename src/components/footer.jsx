@@ -18,7 +18,7 @@ function Footer() {
           <h4 className="font-bold mb-2">Let's Get Social</h4>
           <ul className="flex space-x-3">
             <a href="#" className="hover:text-[#B55D51]">
-              <faInstagra />
+              <FaInstagram />
             </a>
             <a href="#" className="hover:text-[#B55D51]">
               <FaFacebookF />
@@ -119,4 +119,4 @@ function Footer() {
   )
 }
 
-export default Footer
+export default Footer;
