@@ -1,15 +1,13 @@
-import Header from "../components/header";
-import Home from "./home";
+import { Outlet } from "react-router";
 import Footer from "../components/footer";
-import { Outlet } from "react-router-dom";
+import Header from "../components/header";
 
 function Dashboard() {
     return (
         <>
             <Header />
-            <Home />
+            <Outlet />
             <Footer />
-            <Outlet/>
         </>
     )
 };
