@@ -5,18 +5,16 @@ import { BsTwitterX } from "react-icons/bs";
 
 function Footer() {
   return (
-    <div className="bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white py-8 px-4 md:px-8 lg:px-16">
-      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
-        <div className="mb-4 md:mb-0">
-          <img
+    <div className="container mx-auto bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white py-8 px-4 md:px-8 lg:px-16">
+      <div className=" flex flex-col md:flex-row justify-between items-center">
+        <div>
+        <img 
             src="/user-graduate-solid.svg"
             alt="Logo"
-            className="h-8"
+            className="h-8 mb-3"
           />
-        </div>
-        <div>
-          <h4 className="font-bold mb-2">Let's Get Social</h4>
-          <ul className="flex space-x-3">
+          <h4 className="font-bold mb-3">Let's Get Social</h4>
+          <ul className="flex space-x-3 mx-2 mb-3 justify-center">
             <a href="#" className="hover:text-[#B55D51]">
               <FaInstagram />
             </a>
