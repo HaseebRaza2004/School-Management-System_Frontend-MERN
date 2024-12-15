@@ -24,7 +24,6 @@ const CourseDetail = () => {
 
   return (
     <div className="font-sans container mx-auto">
-      {/* Background Image Section */}
       <div
         className="relative bg-cover bg-center text-white px-6 py-16 md:py-24 rounded-t-lg"
         style={{ backgroundImage: `url(${course.image})` }}
@@ -43,7 +42,6 @@ const CourseDetail = () => {
         </div>
       </div>
 
-      {/* Course Info Section */}
       <div className="max-w-6xl mx-auto my-8 px-6 border-2 border-cyan-500 rounded-md shadow-md bg-white">
         <h2 className="text-2xl font-bold mb-6 text-gray-700">Course Details</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
@@ -70,7 +68,6 @@ const CourseDetail = () => {
         </div>
       </div>
 
-      {/* About Module Section */}
       <div className="max-w-6xl mx-auto px-6 py-8 bg-gray-50 rounded-b-lg shadow">
         <h2 className="text-2xl font-bold mb-4">About Module</h2>
         <p className="text-gray-600 mb-4 leading-relaxed">{course.about}</p>
