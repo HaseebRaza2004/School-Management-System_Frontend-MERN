@@ -27,7 +27,9 @@ function Header() {
           </Link>
         </nav>
         <div className="inline-flex items-center text-base mt-4 md:mt-0">
-          <Button label={"Login"} />
+         <Link to="/signup">
+         <Button label={"Login"} />
+         </Link>   
         </div>
       </div>
     </header>
