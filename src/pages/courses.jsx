@@ -12,7 +12,7 @@ function Courses() {
         {courseList.map((course, index) => (
           <div
             key={course.id}
-            className={`flex px-5 py-24 cursor-pointer flex-col md:flex-row items-center ${
+            className={`flex px-5 py-10 cursor-pointer flex-col md:flex-row items-center ${
               index % 2 !== 0 ? "md:flex-row-reverse" : ""
             }`}
           >
