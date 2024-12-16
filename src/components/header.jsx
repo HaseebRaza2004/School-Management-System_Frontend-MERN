@@ -9,8 +9,9 @@ function Header() {
           <img
             src="/user-graduate-solid.svg" 
             alt="Site Logo"
-            className="w-10 h-10"
+            className="w-8 h-8"
           />
+          <h1 className="font-bold text-3xl ml-2">Academia<span className="text-cyan-500">Connect</span></h1>
         </div>
         <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
           <Link to="/" className="mr-5 hover:underline hover:text-gray-900">
@@ -28,7 +29,7 @@ function Header() {
         </nav>
         <div className="inline-flex items-center text-base mt-4 md:mt-0">
          <Link to="/signup">
-         <Button label={"Login"} />
+         <Button label={"SignIn"} />
          </Link>   
         </div>
       </div>

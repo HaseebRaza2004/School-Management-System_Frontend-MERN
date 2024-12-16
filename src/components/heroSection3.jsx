@@ -27,7 +27,6 @@ function HeroSection3() {
                 </div>
             </div>
         </section>
-
     )
 };
 

@@ -5,9 +5,10 @@ import Teachers from "./pages/teachers";
 import Courses from "./pages/courses";
 import AboutUs from "./pages/aboutUs";
 import SignUp from "./pages/Auth/SignUp";
-import SignIn from "./pages/Auth/SignIn";
 import CourseDetail from "./pages/CourseDetail";
 import TeacherDetail from "./pages/TeacherDetail";
+import Profile from "./pages/Profile";
+import NotFound from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -21,8 +22,9 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/:id" element={<CourseDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
-            <Route path="/signup" element={<SignUp/>}/>
-            <Route path="/login" element={<SignIn/>}/>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       </BrowserRouter>
