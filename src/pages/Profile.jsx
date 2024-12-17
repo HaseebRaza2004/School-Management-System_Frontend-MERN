@@ -1,7 +1,7 @@
 
 function Profile() {
 
-    const role = "student";
+    const role = "teacher";
     
     return (
         <div className="container mx-auto">
