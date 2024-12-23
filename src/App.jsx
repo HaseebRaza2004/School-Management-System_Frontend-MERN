@@ -9,6 +9,7 @@ import CourseDetail from "./pages/CourseDetail";
 import TeacherDetail from "./pages/TeacherDetail";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFoundPage";
+import TeacherApplicationForm from "./pages/TeacherApplicationForm";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/registerasateacher" element={<TeacherApplicationForm />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
