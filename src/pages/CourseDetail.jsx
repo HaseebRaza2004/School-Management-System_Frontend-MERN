@@ -42,7 +42,7 @@ const CourseDetail = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto my-8 px-6 border-2 border-cyan-500 rounded-md shadow-md bg-white">
+      <div className="max-w-6xl mx-auto my-8 px-6  rounded-md shadow-md bg-white">
         <h2 className="text-2xl font-bold mb-6 text-gray-700">Course Details</h2>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
           <div className="border p-4 rounded shadow-sm">

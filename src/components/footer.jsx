@@ -5,8 +5,8 @@ import { BsTwitterX } from "react-icons/bs";
 
 function Footer() {
   return (
-    <div className="container mx-auto bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white py-8 px-4 md:px-8 lg:px-16">
-      <div className=" flex flex-col md:flex-row justify-between items-center">
+    <div className=" bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 text-white py-8 px-4 md:px-8 lg:px-16">
+      <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
         <div>
         <img 
             src="/user-graduate-solid.svg"
