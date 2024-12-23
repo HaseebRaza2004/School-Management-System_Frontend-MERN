@@ -4,7 +4,7 @@ import Button from "./button";
 
 function HeroSection1() {
     return (
-        <section className="relative text-gray-600 body-font ">
+        <section className=" relative text-gray-600 body-font ">
         <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] flex items-center justify-center">
        
           <img
@@ -21,10 +21,15 @@ function HeroSection1() {
             <p className="mb-8 leading-relaxed text-gray-100">
               Unlock your full potential with our expert instructors. Our online platform offers a dynamic and interactive learning experience, tailored to your needs. From personalized guidance to engaging coursework, we're committed to helping you achieve academic excellence. Join our vibrant community of learners today and embark on a transformative educational adventure.
             </p>
-            <div className="flex justify-center">
+            <div className="flex flex-col gap-3 justify-center">
               <Link to="/signup">
               <button className="px-6 py-2 bg-cyan-500 text-white rounded-lg shadow-lg hover:bg-cyan-600 transition duration-300">
                 Join Now
+              </button>
+              </Link>
+              <Link to="/registerasateacher">
+              <button className="px-6 py-2 bg-cyan-500 text-white rounded-lg shadow-lg hover:bg-cyan-600 transition duration-300">
+                Join as a Teacher
               </button>
               </Link>
             

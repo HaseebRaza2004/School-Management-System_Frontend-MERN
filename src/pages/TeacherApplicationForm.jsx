@@ -1,139 +1,114 @@
 import React, { useState } from "react";
-import Footer from "../components/footer";
+import { Form, Input, Select, Button, Typography, message } from "antd";
+
+const { TextArea } = Input;
+const { Option } = Select;
+const { Title } = Typography;
 
 const TeacherApplicationForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    qualifications: "",
-    specialty: "",
-    experience: "",
-  });
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
 
-  const [submitted, setSubmitted] = useState(false);
+  const onFinish = (values) => {
+    setLoading(true);
+    console.log("Form submitted:", values);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setTimeout(() => {
+      setLoading(false);
+      message.success("Thank you for applying! We will review your application.");
+      form.resetFields();
+    }, 2000);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.specialty) {
-      alert("Please fill out all required fields.");
-      return;
-    }
-
-    // Send form data to backend or API
-    console.log("Form submitted:", formData);
-    setSubmitted(true);
-
-    // Reset form (optional)
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      qualifications: "",
-      specialty: "",
-      experience: "",
-    });
+  const onFinishFailed = (errorInfo) => {
+    console.error("Form submission failed:", errorInfo);
+    message.error("Please complete the required fields.");
   };
 
   return (
-    <div className="mx-auto min-h-screen flex justify-center items-center bg-cover bg-center" style={{ backgroundImage: 'url("https://plus.unsplash.com/premium_photo-1681488088523-ef98813db228?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGVhY2hlciUyMGFuaW1hdGlvbnxlbnwwfHwwfHx8MA%3D%3D")' }}>
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Apply as a Teacher</h2>
-        {submitted && (
-          <p className="text-green-500 text-center mb-4">
-            Thank you for applying! We will review your application and get back to you soon.
-          </p>
-        )}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Full Name <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+    <div
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+      style={{
+        backgroundImage:
+          'url("https://img.freepik.com/free-photo/assortment-teacher-s-day-elements_23-2149044959.jpg?t=st=1734972159~exp=1734975759~hmac=7f96a04b386cc3aa779c571ea212080429ae0ef1331b119ca88788d9da604a8a&w=900")',
+      }}
+    >
+      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md sm:max-w-lg lg:max-w-2xl">
+        <Title level={2} className="text-center mb-6">
+          Apply as a Teacher
+        </Title>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Email Address <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">Phone Number</label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">Qualifications</label>
-            <textarea
-              name="qualifications"
-              value={formData.qualifications}
-              onChange={handleChange}
-              rows="4"
-              className="w-full p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">
-              Specialty <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="specialty"
-              value={formData.specialty}
-              onChange={handleChange}
-              required
-              className="w-full p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-semibold mb-2">Years of Experience</label>
-            <input
-              type="number"
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              className="w-full p-3 border border-gray-300 rounded-md text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 bg-blue-500 text-white text-lg font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <Form
+          form={form}
+          layout="vertical"
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+        >
+          <Form.Item
+            name="name"
+            label="Full Name"
+            rules={[{ required: true, message: "Please input your full name!" }]}
           >
-            Submit Application
-          </button>
-        </form>
+            <Input placeholder="John Doe" />
+          </Form.Item>
+
+          <Form.Item
+            name="email"
+            label="Email Address"
+            rules={[
+              { required: true, message: "Please input your email address!" },
+              { type: "email", message: "Please enter a valid email address!" },
+            ]}
+          >
+            <Input placeholder="john.doe@example.com" />
+          </Form.Item>
+
+          <Form.Item name="phone" label="Phone Number">
+            <Input placeholder="e.g., +123456789" />
+          </Form.Item>
+
+          <Form.Item name="qualifications" label="Qualifications">
+            <TextArea rows={4} placeholder="List your qualifications here" />
+          </Form.Item>
+
+          <Form.Item
+            name="specialty"
+            label="Specialty"
+            rules={[{ required: true, message: "Please specify your specialty!" }]}
+          >
+            <Input placeholder="e.g., Mathematics, Physics" />
+          </Form.Item>
+
+          <Form.Item name="experience" label="Years of Experience">
+            <Input type="number" placeholder="e.g., 5" />
+          </Form.Item>
+
+          <Form.Item name="preferredSubjects" label="Preferred Subjects">
+            <Select
+              mode="multiple"
+              placeholder="Select preferred subjects"
+              allowClear
+            >
+              <Option value="mathematics">Mathematics</Option>
+              <Option value="physics">Physics</Option>
+              <Option value="chemistry">Chemistry</Option>
+              <Option value="english">English</Option>
+              <Option value="computerScience">Computer Science</Option>
+            </Select>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              className="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800"
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+              block
+            >
+              {loading ? "Submitting..." : "Submit Application"}
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </div>
   );
