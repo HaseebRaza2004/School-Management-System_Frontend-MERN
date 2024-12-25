@@ -1,40 +1,135 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import Button from "./button";
 
 function Header() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <header className="text-gray-600 body-font">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-        <div className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+    <header className="bg-white shadow text-gray-600 body-font">
+      <div className="container mx-auto flex flex-wrap p-5 flex-row items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center">
           <img
-            src="/user-graduate-solid.svg" 
+            src="/user-graduate-solid.svg"
             alt="Site Logo"
             className="w-8 h-8"
           />
-          <h1 className="font-bold text-3xl ml-2">Academia<span className="text-cyan-500">Connect</span></h1>
+          <h1 className="font-bold text-3xl ml-2">
+            Academia<span className="text-cyan-500">Connect</span>
+          </h1>
         </div>
-        <nav className="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
-          <Link to="/" className="mr-5 hover:underline hover:text-gray-900">
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex md:items-center md:space-x-5">
+          <Link to="/" className="hover:underline hover:text-gray-900">
             Home
           </Link>
-          <Link to="/courses" className="mr-5 hover:underline hover:text-gray-900">
+          <Link to="/courses" className="hover:underline hover:text-gray-900">
             Courses
           </Link>
-          <Link to="/teachers" className="mr-5 hover:underline hover:text-gray-900">
+          <Link to="/teachers" className="hover:underline hover:text-gray-900">
             Teachers
           </Link>
-          <Link to="/aboutus" className="mr-5 hover:underline hover:text-gray-900">
+          <Link to="/aboutus" className="hover:underline hover:text-gray-900">
             About Us
           </Link>
         </nav>
-        <div className="inline-flex items-center text-base mt-4 md:mt-0">
-         <Link to="/signup">
-         <Button label={"SignIn"} />
-         </Link>   
+
+        {/* Mobile Menu Button */}
+        <div className="flex md:hidden">
+          <button
+            className="text-gray-900 focus:outline-none"
+            onClick={toggleMenu}
+          >
+            {isMenuOpen ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Sign-In Button */}
+        <div className="hidden md:inline-flex">
+          <Link to="/signup">
+            <Button label={"SignIn"} />
+          </Link>
         </div>
       </div>
+
+      {/* Mobile Dropdown Menu */}
+      {isMenuOpen && (
+        <div className="md:hidden bg-white shadow-lg">
+          <nav className="flex flex-col p-5 space-y-4">
+            <Link
+              to="/"
+              className="hover:underline hover:text-gray-900"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              to="/courses"
+              className="hover:underline hover:text-gray-900"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Courses
+            </Link>
+            <Link
+              to="/teachers"
+              className="hover:underline hover:text-gray-900"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Teachers
+            </Link>
+            <Link
+              to="/aboutus"
+              className="hover:underline hover:text-gray-900"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About Us
+            </Link>
+            <div>
+              <Link to="/signup">
+                <Button label={"SignIn"} />
+              </Link>
+            </div>
+          </nav>
+        </div>
+      )}
     </header>
-  )
-};
+  );
+}
 
 export default Header;
