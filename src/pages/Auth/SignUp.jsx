@@ -9,7 +9,7 @@ function SignUp() {
                     <img
                         className="object-cover object-center rounded-md "
                         alt="hero"
-                        src="/public/images/11672021_13264.jpg"
+                        src="/images/11672021_13264.jpg"
                     />
                 </div>
                 <div className="lg:flex-grow md:w-1/4 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
