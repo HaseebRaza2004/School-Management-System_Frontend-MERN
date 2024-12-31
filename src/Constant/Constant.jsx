@@ -6,20 +6,20 @@ export const BASE_URL = devUrl;
 
 export const AppRoutes = {
     // users
-    getAllUsers: BASE_URL + "/users",
-    getSingleUserById: BASE_URL + "/users/:id",
-    updateUserById: BASE_URL + "/users/:id",
+    getAllUsers: BASE_URL + "users",
+    getSingleUserById: BASE_URL + "users/:id",
+    updateUserById: BASE_URL + "users/:id",
     deleteUserById: BASE_URL + "/users/:id",
 
     // courses
-    getAllCourses: BASE_URL + "/course",
-    getSingleCourseById: BASE_URL + "/course/:id",
-    createCourse: BASE_URL + "/course",
-    updateCoursebyId: BASE_URL + "/course/:id",
-    deleteCoursebyId: BASE_URL + "/course/:id",
+    getAllCourses: BASE_URL + "course",
+    getSingleCourseById: BASE_URL + "course/:id",
+    createCourse: BASE_URL + "course",
+    updateCoursebyId: BASE_URL + "course/:id",
+    deleteCoursebyId: BASE_URL + "course/:id",
 
     // requests
-    getAllRequests: BASE_URL + "/request",
-    teacherRequest: BASE_URL + "/request/apply",
-    approvedOrRejectRequest: BASE_URL + "/request/routes/Requests",
+    getAllRequests: BASE_URL + "request",
+    teacherRequest: BASE_URL + "request/apply",
+    approvedOrRejectRequest: BASE_URL + "request/routes/Requests",
 }; 

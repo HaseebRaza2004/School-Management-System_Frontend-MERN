@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/dashboard";
 import Home from "./pages/home";
 import Teachers from "./pages/teachers";
@@ -11,8 +11,11 @@ import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFoundPage";
 import TeacherApplicationForm from "./pages/TeacherApplicationForm";
 import CourseAdditionForm from "./pages/CourseAddForm";
+import { useContext } from "react";
+import { AuthContext } from "./Context/AuthContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
   return (
     <>
       <BrowserRouter>
@@ -24,7 +27,7 @@ function App() {
             <Route path="/courses" element={<Courses />} />
             <Route path="/course/:id" element={<CourseDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signup" element={user ? <Navigate to={"/"} /> : <SignUp />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/addteacher" element={<TeacherApplicationForm />} />
             <Route path="/addcourse" element={<CourseAdditionForm />} />
