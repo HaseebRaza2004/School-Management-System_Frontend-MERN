@@ -1,8 +1,33 @@
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
+import { BASE_URL } from "../Constant/Constant";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 function Profile() {
+    const { user, setUser } = useContext(AuthContext);
 
-    const role = "teacher";
-    
+    // logout function
+    const logout = async () => {
+        try {
+            // Send a request to the backend to log out the user
+            const response = await axios.get(`${BASE_URL}logout`, {
+                withCredentials: true, // Include cookies in the request
+            });
+            // Handle the response
+            if (response.status === 200) {
+                setUser(null);
+                Cookies.set("userId", null);
+                alert('Logout successful!');
+                // Redirect to login page or update UI
+                window.location.href = '/';
+            }
+        } catch (error) {
+            console.error('Error during logout:', error);
+            alert('Failed to log out. Please try again.');
+        }
+    };
+
     return (
         <div className="container mx-auto">
             <div className="flex flex-col">
@@ -13,15 +38,15 @@ function Profile() {
                         alt="Profile Image"
                     />
                     <div className="ml-6">
-                        <h1 className="text-2xl font-semibold my-3">Name</h1>
-                        <p className="my-3">email@gmail.com</p>
-                        <p className="my-3">education</p>
+                        <h1 className="text-2xl font-semibold my-3">{user?.name}</h1>
+                        <p className="my-3">{user?.email || "email@gmail.com"}</p>
+                        <p className="my-3">{user?.role}</p>
                     </div>
                 </div>
                 <div className="flex justify-center flex-col my-10">
                     <h1 className="text-4xl font-bold my-10">
                         {
-                            role === "teacher" ? "My Classes" : "My Coursess"
+                            user?.role === "teacher" ? "My Classes" : "My Coursess"
                         }
                     </h1>
                     <div className="flex flex-col ">
@@ -32,13 +57,22 @@ function Profile() {
                                 <h1>Status</h1>
                                 <button className="py-2 px-4 border rounded-md bg-green-300 hover:bg-green-400">
                                     {
-                                        role === "teacher" ? "Delete Course" : "Leave Course"
+                                        user?.role === "teacher" ? "Delete Course" : "Leave Course"
                                     }
                                 </button>
                             </div>
                         </div>
 
                     </div>
+                </div>
+                <div className="flex justify-end mb-10">
+                    <button
+                    onClick={logout}
+                        type="button"
+                        className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                    >
+                        logout
+                    </button>
                 </div>
             </div>
         </div>

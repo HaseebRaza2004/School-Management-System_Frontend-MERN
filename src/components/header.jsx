@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "./button";
+import { AuthContext } from "../Context/AuthContext";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user } = useContext(AuthContext);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -82,9 +84,22 @@ function Header() {
 
         {/* Sign-In Button */}
         <div className="hidden md:inline-flex">
-          <Link to="/signup">
-            <Button label={"SignIn"} />
-          </Link>
+          {
+            user ? (
+              <Link to={"/profile"} className="m-2">
+                <img
+                  className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                  src={user?.profilePhoto}
+                  alt="Bordered avatar"
+                />
+
+              </Link>
+            ) : (
+              <Link to="/signup">
+                <Button label={"SignIn"} />
+              </Link>
+            )
+          }
         </div>
       </div>
 
@@ -121,9 +136,22 @@ function Header() {
               About Us
             </Link>
             <div>
-              <Link to="/signup">
-                <Button label={"SignIn"} />
-              </Link>
+              {
+                user ? (
+                  <Link to={"/profile"} className="m-2">
+                    <img
+                      className="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
+                      src={user?.profilePhoto}
+                      alt="Bordered avatar"
+                    />
+
+                  </Link>
+                ) : (
+                  <Link to="/signup">
+                    <Button label={"SignIn"} />
+                  </Link>
+                )
+              }
             </div>
           </nav>
         </div>
