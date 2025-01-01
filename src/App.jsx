@@ -9,10 +9,10 @@ import CourseDetail from "./pages/CourseDetail";
 import TeacherDetail from "./pages/TeacherDetail";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFoundPage";
-import TeacherApplicationForm from "./pages/TeacherApplicationForm";
 import CourseAdditionForm from "./pages/CourseAddForm";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
+import TeacherApplicationForm from "./components/TeacherApplicationForm";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -28,9 +28,9 @@ function App() {
             <Route path="/course/:id" element={<CourseDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/signup" element={user ? <Navigate to={"/"} /> : <SignUp />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/addteacher" element={<TeacherApplicationForm />} />
-            <Route path="/addcourse" element={<CourseAdditionForm />} />
+            <Route path="/profile" element={user ? <Profile /> : <Navigate to={"/signup"} />} />
+            <Route path="/addteacher" element={user ? <TeacherApplicationForm /> : <Navigate to={"/signup"} />} />
+            <Route path="/addcourse" element={user ? <CourseAdditionForm /> : <Navigate to={"/signup"} />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
