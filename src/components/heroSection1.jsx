@@ -10,7 +10,7 @@ function HeroSection1() {
           <img
             className="absolute  inset-0 w-full h-full object-cover object-center opacity-80"
             alt="hero"
-            src="/public/images/Rectangle 168.png"
+            src="/images/Rectangle 168.png"
           />
       
      
