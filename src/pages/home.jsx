@@ -11,6 +11,7 @@ import { BASE_URL } from "../Constant/Constant";
 
 function Home() {
     const { setUser } = useContext(AuthContext);
+
     // get user info from db after login and save user id into cookies and set user in authcontext
     useEffect(() => {
         axios.get(`${BASE_URL}api/user`, { withCredentials: true })
@@ -18,7 +19,7 @@ function Home() {
                 Cookies.set('userId', res.data._id);
                 setUser(res?.data);
             })
-            .catch((err) => console.log("error in geting response", err.message));
+            .catch((err) => console.log(err.message));
     }, []);
 
     return (
