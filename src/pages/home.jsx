@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import HeroSection1 from "../components/heroSection1";
 import HeroSection2 from "../components/heroSection2";
 import HeroSection3 from "../components/heroSection3";
+import HeroSection4 from "../components/heroSection4";
 import Statistics from "../components/statistics";
 import HowItWorks from "../components/stepsHowItWorks";
 import axios from "axios";
@@ -27,6 +28,7 @@ function Home() {
             <Statistics />
             <HeroSection2 />
             <HeroSection3 />
+            <HeroSection4 />
             <HowItWorks />
         </div>
     )

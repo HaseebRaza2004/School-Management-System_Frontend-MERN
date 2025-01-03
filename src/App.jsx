@@ -13,6 +13,7 @@ import TeacherApplicationForm from "./pages/TeacherApplicationForm";
 import CourseAdditionForm from "./pages/CourseAddForm";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
+import AdminPanel from "./pages/AdminPanel";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -31,6 +32,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/addteacher" element={<TeacherApplicationForm />} />
             <Route path="/addcourse" element={<CourseAdditionForm />} />
+            <Route path="/adminpanel" element={<AdminPanel/>} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

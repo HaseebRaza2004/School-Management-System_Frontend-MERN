@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "./button";
-
+import { useContext } from "react";
+import { AuthContext } from "../Context/AuthContext";
 
 function HeroSection1() {
+    const { user } = useContext(AuthContext);
+
     return (
         <section className=" relative text-gray-600 body-font ">
         <div className="relative w-full h-[500px] md:h-[600px] lg:h-[700px] flex items-center justify-center">
@@ -22,17 +25,15 @@ function HeroSection1() {
               Unlock your full potential with our expert instructors. Our online platform offers a dynamic and interactive learning experience, tailored to your needs. From personalized guidance to engaging coursework, we're committed to helping you achieve academic excellence. Join our vibrant community of learners today and embark on a transformative educational adventure.
             </p>
             <div className="flex flex-col gap-3 justify-center">
-              <Link to="/signup">
-              <button className="px-6 py-2 bg-cyan-500 text-white rounded-lg shadow-lg hover:bg-cyan-600 transition duration-300">
-                Join Now
-              </button>
-              </Link>
-              <Link to="/registerasateacher">
-              <button className="px-6 py-2 bg-cyan-500 text-white rounded-lg shadow-lg hover:bg-cyan-600 transition duration-300">
-                Join as a Teacher
-              </button>
-              </Link>
-            
+              {user ? (
+                <div className="text-white text-lg">Welcome, {user.name}!</div>
+              ) : (
+                <Link to="/signup">
+                  <button className="px-6 py-2 bg-cyan-500 text-white rounded-lg shadow-lg hover:bg-cyan-600 transition duration-300">
+                    Join Now
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
       
@@ -41,7 +42,7 @@ function HeroSection1() {
         </div>
       </section>
       
-    )
+    );
 };
 
 export default HeroSection1;
