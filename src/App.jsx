@@ -12,8 +12,12 @@ import NotFound from "./pages/NotFoundPage";
 import TeacherApplicationForm from "./pages/TeacherApplicationForm";
 import CourseAdditionForm from "./pages/CourseAddForm";
 import AdminPanel from "./pages/AdminPanel";
+import { useContext } from "react";
+import { AuthContext } from "./Context/AuthContext";
+
 
 function App() {
+  const {user} = useContext(AuthContext)
   return (
     <>
       <BrowserRouter>
