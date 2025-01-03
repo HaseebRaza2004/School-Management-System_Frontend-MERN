@@ -7,7 +7,7 @@ import { AuthContext } from "../Context/AuthContext";
 const { TextArea } = Input;
 const { Title } = Typography;
 
-const TeacherApplicationForm = () => {
+function TeacherApplicationForm ()  {
   const { user } = useContext(AuthContext);
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
