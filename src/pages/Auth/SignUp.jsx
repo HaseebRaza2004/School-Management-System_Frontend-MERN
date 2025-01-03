@@ -14,7 +14,7 @@ function SignUp() {
     // handle Facebook Login
     const handleFacebooklogin = () => {
         setLoading(true);
-        window.location.href = `${BASE_URL}auth/auth/facebook`;
+        window.location.href = `${BASE_URL}auth/facebook`;
         setLoading(false);
     };
 

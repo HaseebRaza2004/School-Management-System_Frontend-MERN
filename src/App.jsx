@@ -14,16 +14,20 @@ import AdminPanel from "./pages/AdminPanel";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import TeacherApplicationForm from "./components/TeacherApplicationForm";
+import AdminPage from "./pages/AdminPage";
 
 
 function App() {
-  const {user} = useContext(AuthContext)
+
+  const { user } = useContext(AuthContext);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />}>
             <Route index element={<Home />} />
+            <Route path="/adminPage" element={<AdminPage />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/teachers/:id" element={<TeacherDetail />} />
             <Route path="/courses" element={<Courses />} />

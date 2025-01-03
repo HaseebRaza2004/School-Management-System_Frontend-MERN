@@ -21,5 +21,5 @@ export const ApiRoutes = {
     // requests
     getAllRequests: BASE_URL + "request",
     teacherRequest: BASE_URL + "request/apply",
-    approvedOrRejectRequest: BASE_URL + "request/routes/Requests",
+    approvedOrRejectRequest: BASE_URL + "request/routes/Requests/:id",
 }; 
