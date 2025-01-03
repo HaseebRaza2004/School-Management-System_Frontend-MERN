@@ -23,7 +23,6 @@ const TeacherApplicationForm = () => {
       workExperience: values.experience,
       skills: values.Skills,
     };
-    console.log("Form obj=>", obj);
     axios.post(ApiRoutes.teacherRequest, obj)
       .then((res) => {
         setTimeout(() => {
