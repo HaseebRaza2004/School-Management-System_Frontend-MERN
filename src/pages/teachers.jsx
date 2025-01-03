@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Modal, Button } from "antd";
 import TeacherList from "../components/teachersList";
 import HeroSection4 from "../components/heroSection4";
-import TeacherApplicationForm from "./TeacherApplicationForm";
+import TeacherApplicationForm from "../components/TeacherApplicationForm";
 
 function Teachers() {
   const teacherList = TeacherList();
