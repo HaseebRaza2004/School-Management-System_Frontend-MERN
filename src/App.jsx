@@ -30,9 +30,9 @@ function App() {
             <Route path="/course/:id" element={<CourseDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/signup" element={user ? <Navigate to={"/"} /> : <SignUp />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/addteacher" element={<TeacherApplicationForm />} />
-            <Route path="/addcourse" element={<CourseAdditionForm />} />
+            <Route path="/profile" element={user? <Navigate to={"/signup"}/> : <Profile />} />
+            <Route path="/addteacher" element={user? <Navigate to={"/signup"} /> :<TeacherApplicationForm />} />
+            <Route path="/addcourse" element={user? <Navigate to={"/signup"}/> :<CourseAdditionForm />} />
             <Route path="/adminpanel" element={<AdminPanel/>} />
             <Route path="*" element={<NotFound />} />
           </Route>
