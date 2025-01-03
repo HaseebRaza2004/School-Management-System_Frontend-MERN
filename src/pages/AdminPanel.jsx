@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Layout, Menu, Breadcrumb, Table, Tabs } from 'antd';
 import 'antd/dist/reset.css';
 
@@ -59,28 +59,20 @@ const AdminPanel = () => {
           </Header>
           <Content className="m-4">
             <Tabs defaultActiveKey="1" items={[
-              {
-                key: '1', label: 'Teachers', children: (
-                  <Table dataSource={teachersData} columns={columnsTeachers} />
-                )
-              },
-              {
-                key: '2', label: 'Students', children: (
-                  <Table dataSource={studentsData} columns={columnsStudents} />
-                )
-              },
-              {
-                key: '3', label: 'Courses', children: (
-                  <Table dataSource={coursesData} columns={columnsCourses} />
-                )
-              },
-              {
-                key: '4', label: 'Drop Courses', children: (
-                  <div className="text-center py-8">
-                    <p className="text-lg">Manage dropped courses here</p>
-                  </div>
-                )
-              },
+              { key: '1', label: 'Teachers', children: (
+                <Table dataSource={teachersData} columns={columnsTeachers} />
+              ) },
+              { key: '2', label: 'Students', children: (
+                <Table dataSource={studentsData} columns={columnsStudents} />
+              ) },
+              { key: '3', label: 'Courses', children: (
+                <Table dataSource={coursesData} columns={columnsCourses} />
+              ) },
+              { key: '4', label: 'Drop Courses', children: (
+                <div className="text-center py-8">
+                  <p className="text-lg">Manage dropped courses here</p>
+                </div>
+              ) },
             ]} />
           </Content>
           <Footer className="text-center">Admin Panel AC</Footer>
