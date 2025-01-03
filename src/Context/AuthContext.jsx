@@ -15,7 +15,7 @@ export default function AuthContextProvider({ children }) {
                 axios.get(`${BASE_URL}users/${userID}`)
                     .then((res) => {
                         setUser(res?.data?.user);
-                    }).catch((err) => console.log(err))
+                    }).catch((err) => console.log(err.response.data.message))
             };
         };
     }, [user]);

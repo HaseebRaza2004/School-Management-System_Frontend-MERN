@@ -4,7 +4,7 @@ const prodUrl = "https://school-management-system-backend-mern.onrender.com/";
 
 export const BASE_URL = devUrl;
 
-export const AppRoutes = {
+export const ApiRoutes = {
     // users
     getAllUsers: BASE_URL + "users",
     getSingleUserById: BASE_URL + "users/:id",

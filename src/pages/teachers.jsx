@@ -55,7 +55,7 @@ function Teachers() {
                     {teacher.name}
                   </h2>
                   <p className="text-gray-600 text-sm mt-1">
-                    Email: <a href={`mailto:${teacher.email}`}>{teacher.email}</a>
+                    Email: {teacher.email}
                   </p>
                   <p className="text-gray-600 text-sm">Phone: {teacher.phone}</p>
                 </div>
