@@ -9,12 +9,12 @@ import CourseDetail from "./pages/CourseDetail";
 import TeacherDetail from "./pages/TeacherDetail";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFoundPage";
-import CourseAdditionForm from "./pages/CourseAddForm";
 import AdminPanel from "./pages/AdminPanel";
 import { useContext } from "react";
 import { AuthContext } from "./Context/AuthContext";
 import TeacherApplicationForm from "./components/TeacherApplicationForm";
 import AdminPage from "./pages/AdminPage";
+import CourseAdditionForm from "./components/CourseAddForm";
 
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
             <Route path="/course/:id" element={<CourseDetail />} />
             <Route path="/aboutUs" element={<AboutUs />} />
             <Route path="/signup" element={user ? <Navigate to={"/"} /> : <SignUp />} />
-            <Route path="/adminpanel" element={<AdminPanel/>} />
+            <Route path="/adminpanel" element={user ? <AdminPanel /> : <Navigate to={"/"} />} />
             <Route path="/profile" element={user ? <Profile /> : <Navigate to={"/signup"} />} />
             <Route path="/addteacher" element={user ? <TeacherApplicationForm /> : <Navigate to={"/signup"} />} />
             <Route path="/addcourse" element={user ? <CourseAdditionForm /> : <Navigate to={"/signup"} />} />
