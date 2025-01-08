@@ -1,25 +1,54 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { BASE_URL } from "../Constant/Constant";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { LogOut, Trash2, BookOpen, UserCircle } from "lucide-react";
 
 function Profile() {
     const { user, setUser } = useContext(AuthContext);
+    const [courses, setCourses] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    // logout function
+    // fetching course from DB according user
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const endpoint = user.role === "teacher"
+                    ? `${BASE_URL}course/teacher/${user._id}`
+                    : `${BASE_URL}course/student/${user._id}`;
+
+                const response = await axios.get(endpoint, { withCredentials: true });
+
+                if (response.status === 200) {
+                    setCourses(response.data.courses);
+                } else {
+                    alert("Failed to fetch courses");
+                }
+            } catch (error) {
+                console.error("Error fetching courses:", error);
+                alert("Error fetching courses");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (user?._id) {
+            fetchCourses();
+        }
+    }, [user]);
+
+    if (loading) return (<p>Loading...</p>)
+
     const logout = async () => {
         try {
-            // Send a request to the backend to log out the user
             const response = await axios.get(`${BASE_URL}logout`, {
-                withCredentials: true, // Include cookies in the request
+                withCredentials: true,
             });
-            // Handle the response
             if (response.status === 200) {
                 setUser(null);
                 Cookies.set("userId", null);
                 alert('Logout successful!');
-                // Redirect to login page or update UI
                 window.location.href = '/';
             }
         } catch (error) {
@@ -28,19 +57,15 @@ function Profile() {
         }
     };
 
-    // delete Account Function
     const deleteAccount = async (id) => {
         try {
-            // Send a request to the backend to delete the user from db
             const response = await axios.delete(`${BASE_URL}users/${id}`, {
-                withCredentials: true, // Include cookies in the request
+                withCredentials: true,
             });
-            // Handle the response
             if (response.status === 200) {
                 setUser(null);
                 Cookies.set("userId", null);
-                alert('delete Account Successful!');
-                // Redirect to login page or update UI
+                alert('Delete Account Successful!');
                 window.location.href = '/';
             }
         } catch (error) {
@@ -50,70 +75,86 @@ function Profile() {
     };
 
     return (
-        <div className="container mx-auto">
-            <div className="flex flex-col">
-                <div className="flex items-center mt-10">
-                    <img
-                        className="w-52 h-52 ml-6 shadow-md rounded-md"
-                        src={user?.profilePhoto}
-                        alt="Profile Image"
-                    />
-                    <div className="ml-10">
-                        <h1 className="text-3xl font-semibold my-3">{user?.name}</h1>
-                        <p className="my-3 text-xl">{user?.email || "email@gmail.com"}</p>
-                        <p className="my-3 text-lg">{user?.role}</p>
-                    </div>
-                </div>
-                <div className="flex justify-center flex-col my-10">
-                    <h1 className="text-4xl font-bold my-10">
-                        {
-                            user?.role === "teacher" ? "My Classes" : "My Coursess"
-                        }
-                    </h1>
-                    <div className="flex flex-col ">
-                        <div className="flex justify-between items-center rounded-md shadow-md py-4 px-4 my-2">
-                            <div className="text-xl font-medium">Batch - Course Name</div>
-                            <div className="flex items-center gap-4">
-                                <h1>Status</h1>
-                                <button className="py-2 px-4 border rounded-md bg-green-300 hover:bg-green-400">
-                                    {
-                                        user?.role === "teacher" ? "Delete Course" : "Leave Course"
-                                    }
-                                </button>
+        <div className="min-h-screen bg-gray-50">
+            <div className="container mx-auto px-4 py-8">
+                {/* Profile Info */}
+                <div className="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div className="md:flex">
+                        <div className="md:shrink-0 p-6 flex justify-center md:justify-start">
+                            <div className="relative">
+                                {user?.profilePhoto ? (
+                                    <img
+                                        className="h-48 w-48 rounded-full object-cover border-4 border-white shadow-lg"
+                                        src={user.profilePhoto}
+                                        alt={user.name}
+                                    />
+                                ) : (
+                                    <UserCircle className="h-48 w-48 text-gray-400" />
+                                )}
+                                <span className="absolute bottom-2 right-2 px-3 py-1 bg-blue-500 text-white text-sm rounded-full">
+                                    {user?.role}
+                                </span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="flex flex-col w-full mb-10">
-                    <div className="flex justify-between items-center w-full py-4 px-4 my-2">
-                        <div className="text-xl font-medium">logout Your Acccount:</div>
-                        <div className="flex items-center">
+                        <div className="p-6 md:p-8">
+                            <h2 className="text-3xl font-bold text-gray-800 mb-2">{user?.name}</h2>
+                            <p className="text-gray-600 mb-4">{user?.email || "email@gmail.com"}</p>
                             <button
                                 onClick={logout}
-                                type="button"
-                                className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
                             >
-                                logout
+                                <LogOut size={18} />
+                                <span>Logout</span>
                             </button>
                         </div>
                     </div>
-                    <div className="flex justify-between items-center w-full py-4 px-4 my-2">
-                        <div className="text-xl font-medium">Delete Your Acccount Permanently:</div>
-                        <div className="flex items-center">
-                            <button
-                                onClick={() => deleteAccount(user._id)}
-                                type="button"
-                                className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-                            >
-                                Delete Account
-                            </button>
-                        </div>
-                    </div>
+                </div>
 
+                <div className="container mx-auto px-4 py-8">
+                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                        {user?.role === "teacher" ? "My Created Courses" : "My Enrolled Courses"}
+                    </h2>
+                    <div className="grid gap-4">
+
+                        {/* Course Card */}
+                        {courses.map((course) => (
+                            <div key={course?._id} className="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-200">
+                                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                                    <div>
+                                        <h3 className="text-lg font-semibold text-gray-800">{`${course?.batch} - ${course?.title}`}</h3>
+                                        <span className="inline-block mt-2 px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                            Active
+                                        </span>
+                                    </div>
+                                    <button className="w-full sm:w-auto px-4 py-2 bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors duration-200">
+                                        {user?.role === "teacher" ? "Delete Course" : "Leave Course"}
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+
+                    </div>
+                </div>
+
+                {/* Delete Account Section */}
+                <div className="mt-12 bg-white rounded-lg shadow-md p-6">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h3 className="text-xl font-semibold text-gray-800">Delete Account</h3>
+                            <p className="text-gray-600 mt-1">This action cannot be undone.</p>
+                        </div>
+                        <button
+                            onClick={() => deleteAccount(user._id)}
+                            className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors duration-200"
+                        >
+                            <Trash2 size={18} />
+                            <span>Delete Account</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    )
-};
+    );
+}
 
 export default Profile;

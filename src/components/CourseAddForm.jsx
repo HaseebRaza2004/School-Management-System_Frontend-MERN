@@ -44,7 +44,7 @@ const CourseAdditionForm = () => {
           message.success("Course successfully added!");
           form.resetFields();
         }, 2000);
-        navigate("/course");
+        navigate("/");
       })
       .catch((err) => {
         setTimeout(() => {

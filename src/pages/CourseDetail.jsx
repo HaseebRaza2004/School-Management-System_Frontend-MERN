@@ -25,6 +25,7 @@ const CourseDetail = () => {
       });
   }, [id]);
 
+  // enroll students
   const handleEnroll = async () => {
     if (!user) {
       navigate("/signup");
@@ -130,10 +131,11 @@ const CourseDetail = () => {
               <h2 className="text-2xl font-bold mb-4">Description</h2>
               <p className="text-gray-600 mb-4 leading-relaxed">{course?.description}</p>
             </div>
-            {/* After the course description div */}
-            {/* {user?.role === 'teacher' || user?.role === 'admin' ? (
+
+            {/* Students who enroll in course only visible for teacher and admin */}
+            {user?.role === 'teacher' || user?.role === 'admin' ? (
               <EnrolledStudents students={course?.studentsId || []} />
-            ) : null} */}
+            ) : null}
           </div>
         )
       }

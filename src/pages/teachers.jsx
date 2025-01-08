@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Modal, Button } from "antd";
 import TeacherList from "../components/teachersList";
 import HeroSection4 from "../components/heroSection4";
 import TeacherApplicationForm from "../components/TeacherApplicationForm";
+import axios from "axios";
 
 function Teachers() {
   const teacherList = TeacherList();
