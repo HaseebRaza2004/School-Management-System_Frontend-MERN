@@ -7,6 +7,7 @@ export const BASE_URL = devUrl;
 export const ApiRoutes = {
     // users
     getAllUsers: BASE_URL + "users",
+    getAllStudents: BASE_URL + "users/students",
     getSingleUserById: BASE_URL + "users/:id",
     updateUserById: BASE_URL + "users/:id",
     deleteUserById: BASE_URL + "/users/:id",
@@ -22,5 +23,6 @@ export const ApiRoutes = {
     getAllRequests: BASE_URL + "request",
     teacherRequest: BASE_URL + "request/apply",
     approvedOrRejectRequest: BASE_URL + "request/routes/Requests/:id",
+
     getAllApprovedTeachers: BASE_URL + "request/teachers",
 }; 
