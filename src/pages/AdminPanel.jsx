@@ -11,16 +11,12 @@ const teacherRequestsData = [
   { key: '2', name: 'Sophia White', qualification: 'BSc Biology', email: 'sophia.white@example.com' },
 ];
 
-const coursesData = [
-  { key: '1', title: 'Algebra 101', createdBy: 'John Doe', duration: '3 months' },
-  { key: '2', title: 'Physics Basics', createdBy: 'Jane Smith', duration: '4 months' },
-];
-
 const AdminPanel = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState(null);
   const [teachersData, setTeachersData] = useState([]);
   const [studentsData, setStudentsData] = useState([]);
+  const [coursesData, setCoursesData] = useState([]);
 
   // get teachers info from db
   useEffect(() => {
@@ -54,7 +50,7 @@ const AdminPanel = () => {
           request._id === requestId ? { ...request, status } : request
         )
       );
-      window.location.reload("/adminpanel");
+      window.location.reload("/adminPanel");
     } catch (error) {
       console.error('Error updating request status:', error);
     }
@@ -75,13 +71,48 @@ const AdminPanel = () => {
       .catch((err) => {
         console.log("error in fetching students", err);
       });
-  }, [studentsData]);
+  }, []);
 
   // delete student
-  const deleteStudent = async ( id ) => {
+  const deleteStudent = async (id) => {
     try {
       const res = await axios.delete(`${BASE_URL}users/${id}`, { withCredentials: true });
-      setStudentsData([]);
+      window.location.reload("/adminPanel");
+    } catch (error) {
+      console.log("error in deleting student", error);
+    };
+  };
+
+  // Get all Courses from db
+  useEffect(() => {
+    axios.get(ApiRoutes.getAllCourses, { withCredentials: true })
+      .then((res) => {
+        console.log("courses =>", res.data.courses);
+        const fetchedCourses = res.data.courses.map((course) => ({
+          key: course._id, // Use _id as unique key for rows
+          createdBy: course.teacherId.name,
+          title: course.title,
+          subTitle: course.subTitle,
+          description: course.description,
+          courseTimming: course.courseTimming,
+          courseLevel: course.courseLevel,
+          courseDuration: course.courseDuration,
+          batch: course.batch,
+          activeDate: course.activeDate,
+          endDate: course.activeDate,
+        }));
+        setCoursesData(fetchedCourses);
+      })
+      .catch((err) => {
+        console.log("error in fetching course =>", err);
+      })
+  }, []);
+
+  // delete course
+  const deleteCourse = async (id) => {
+    try {
+      const res = await axios.delete(`${BASE_URL}course/${id}`, { withCredentials: true });
+      window.location.reload("/adminPanel");
     } catch (error) {
       console.log("error in deleting student", error);
     };
@@ -130,7 +161,7 @@ const AdminPanel = () => {
       title: 'Action',
       key: 'action',
       render: (_, record) => (
-        <Button type="primary" danger onClick={() => deleteStudent(record.key)}>Kick Student</Button>
+        <Button type="primary" danger onClick={() => { deleteStudent(record.key); closeModal() }}>Kick Student</Button>
       ),
     },
   ];
@@ -138,7 +169,6 @@ const AdminPanel = () => {
   const coursesColumns = [
     { title: 'Course Title', dataIndex: 'title', key: 'title' },
     { title: 'Created By', dataIndex: 'createdBy', key: 'createdBy' },
-    { title: 'Duration', dataIndex: 'duration', key: 'duration' },
     {
       title: 'Action',
       key: 'action',
@@ -146,10 +176,18 @@ const AdminPanel = () => {
         <Button onClick={() => showModal(
           <div>
             <h3>Course Information</h3>
-            <p>Title: {record.title}</p>
-            <p>Created By: {record.createdBy}</p>
-            <p>Duration: {record.duration}</p>
-            <Button type="primary" danger onClick={closeModal}>Delete Course</Button>
+            <p><strong>Title:</strong> {record.title}</p>
+            <p><strong>Created By:</strong> {record.createdBy}</p>
+            <p><strong>SubTitle:</strong> {record.subTitle}</p>
+            <p><strong>Description:</strong> {record.description}</p>
+            <p><strong>Start from:</strong> {record.activeDate}</p>
+            <p><strong>Ends On:</strong> {record.endDate}</p>
+            <p><strong>Ends On:</strong> {record.endDate}</p>
+            <p><strong>Timming:</strong> {record.courseTimming}</p>
+            <p><strong>Level:</strong> {record.courseLevel}</p>
+            <p><strong>Duration:</strong> {record.courseDuration}</p>
+            <p><strong>Batch:</strong> {record.batch}</p>
+            <Button type="primary" danger onClick={() => {deleteCourse(record.key); closeModal() }}>Delete Course</Button>
           </div>
         )}>See Details</Button>
       ),
