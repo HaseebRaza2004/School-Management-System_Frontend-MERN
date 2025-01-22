@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Menu, Breadcrumb, Table, Tabs, Modal, Button } from 'antd';
+import { Layout, Table, Tabs, Modal, Button } from 'antd';
 import 'antd/dist/reset.css';
 import axios from 'axios';
 import { ApiRoutes, BASE_URL } from '../Constant/Constant';
 
-const { Header, Content, Footer, Sider } = Layout;
-
-const teacherRequestsData = [
-  { key: '1', name: 'Michael Green', qualification: 'MSc Physics', email: 'michael.green@example.com' },
-  { key: '2', name: 'Sophia White', qualification: 'BSc Biology', email: 'sophia.white@example.com' },
-];
+const { Content, Footer } = Layout;
 
 const AdminPanel = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -17,6 +12,7 @@ const AdminPanel = () => {
   const [teachersData, setTeachersData] = useState([]);
   const [studentsData, setStudentsData] = useState([]);
   const [coursesData, setCoursesData] = useState([]);
+  const [request, setRequest] = useState([]);
 
   // get teachers info from db
   useEffect(() => {
@@ -87,7 +83,6 @@ const AdminPanel = () => {
   useEffect(() => {
     axios.get(ApiRoutes.getAllCourses, { withCredentials: true })
       .then((res) => {
-        console.log("courses =>", res.data.courses);
         const fetchedCourses = res.data.courses.map((course) => ({
           key: course._id, // Use _id as unique key for rows
           createdBy: course.teacherId.name,
@@ -116,6 +111,45 @@ const AdminPanel = () => {
     } catch (error) {
       console.log("error in deleting student", error);
     };
+  };
+
+  // Get All teacher Request From db
+  useEffect(() => {
+    axios.get(ApiRoutes.getAllRequests)
+      .then((res) => {
+        const teachersRequest = res.data.map((teacher) => ({
+          key: teacher._id, // Use _id as unique key for rows
+          name: teacher.userId.name,
+          email: teacher.userId.email,
+          contact: teacher.contact,
+          education: teacher.education,
+          skills: teacher.skills,
+          specialistSubject: teacher.specialistSubject,
+          workExperience: teacher.workExperience,
+          status: teacher.status,
+          role: teacher.userId.role,
+        }));
+        setRequest(teachersRequest);
+      })
+      .catch((err) => {
+        console.log("Get All Request error =>", err);
+      });
+  }, []);
+
+  // approved or reject user request to become a teacher from db. 
+  const handleRequestStatus = async (requestId, status) => {
+    try {
+      const response = await axios.patch(`${BASE_URL}request/routes/Requests/${requestId}`, { status }); // Update API endpoint
+      // Update the local state with the updated request
+      setRequest((prevRequests) =>
+        prevRequests.map((request) =>
+          request._id === requestId ? { ...request, status } : request
+        )
+      );
+      window.location.reload("/adminPanel");
+    } catch (error) {
+      console.error('Error updating request status:', error);
+    }
   };
 
   const showModal = (content) => {
@@ -187,7 +221,7 @@ const AdminPanel = () => {
             <p><strong>Level:</strong> {record.courseLevel}</p>
             <p><strong>Duration:</strong> {record.courseDuration}</p>
             <p><strong>Batch:</strong> {record.batch}</p>
-            <Button type="primary" danger onClick={() => {deleteCourse(record.key); closeModal() }}>Delete Course</Button>
+            <Button type="primary" danger onClick={() => { deleteCourse(record.key); closeModal() }}>Delete Course</Button>
           </div>
         )}>See Details</Button>
       ),
@@ -196,7 +230,7 @@ const AdminPanel = () => {
 
   const teacherRequestsColumns = [
     { title: 'Name', dataIndex: 'name', key: 'name' },
-    { title: 'Qualification', dataIndex: 'qualification', key: 'qualification' },
+    { title: 'Qualification', dataIndex: 'education', key: 'education' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     {
       title: 'Action',
@@ -205,11 +239,17 @@ const AdminPanel = () => {
         <Button onClick={() => showModal(
           <div>
             <h3>Teacher Request Details</h3>
-            <p>Name: {record.name}</p>
-            <p>Email: {record.email}</p>
-            <p>Qualification: {record.qualification}</p>
-            <Button type="primary" onClick={closeModal}>Accept</Button>
-            <Button type="primary" danger onClick={closeModal} style={{ marginLeft: '10px' }}>Reject</Button>
+            <p><strong>Name:</strong> {record.name}</p>
+            <p><strong>Email:</strong> {record.email}</p>
+            <p><strong>Skills:</strong> {record.skills}</p>
+            <p><strong>Contact:</strong> {record.contact}</p>
+            <p><strong>Education:</strong> {record.education}</p>
+            <p><strong>Specialist Subject:</strong> {record.specialistSubject}</p>
+            <p><strong>Work Experience:</strong> {record.workExperience} years</p>
+            <p><strong>Status:</strong> {record.status}</p>
+            <p><strong>Role:</strong> {record.role}</p>
+            <Button type="primary" onClick={() => { handleRequestStatus(record.key, 'approved'); closeModal() }}>Accept</Button>
+            <Button type="primary" danger onClick={() => { handleRequestStatus(record.key, 'rejected'); closeModal() }} style={{ marginLeft: '10px' }}>Reject</Button>
           </div>
         )}>See Details</Button>
       ),
@@ -218,29 +258,13 @@ const AdminPanel = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible>
-        <div className="text-white text-center font-bold py-4">Admin Panel</div>
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={[
-          { key: '1', label: 'Dashboard' },
-          { key: '2', label: 'Teachers' },
-          { key: '3', label: 'Teacher Requests' },
-          { key: '4', label: 'Students' },
-          { key: '5', label: 'Courses' },
-        ]} />
-      </Sider>
       <Layout>
-        <Header className="bg-white shadow-md px-4">
-          <Breadcrumb items={[
-            { label: 'Home' },
-            { label: 'Admin' },
-          ]} />
-        </Header>
         <Content className="m-4">
           <Tabs defaultActiveKey="1" items={[
             { key: '1', label: 'Teachers', children: <Table dataSource={teachersData} columns={teachersColumns} /> },
             { key: '2', label: 'Students', children: <Table dataSource={studentsData} columns={studentsColumns} /> },
             { key: '3', label: 'Courses', children: <Table dataSource={coursesData} columns={coursesColumns} /> },
-            { key: '4', label: 'Teacher Requests', children: <Table dataSource={teacherRequestsData} columns={teacherRequestsColumns} /> },
+            { key: '4', label: 'Teacher Requests', children: <Table dataSource={request} columns={teacherRequestsColumns} /> },
           ]} />
         </Content>
         <Footer className="text-center">Admin Panel</Footer>
