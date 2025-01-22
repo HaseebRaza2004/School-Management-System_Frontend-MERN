@@ -4,6 +4,7 @@ import { BASE_URL } from "../Constant/Constant";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { LogOut, Trash2, BookOpen, UserCircle } from "lucide-react";
+import { Link } from "react-router";
 
 function Profile() {
     const { user, setUser } = useContext(AuthContext);
@@ -109,6 +110,24 @@ function Profile() {
                         </div>
                     </div>
                 </div>
+
+                {/* For admin to go admin panel */}
+                {user?.role === "admin" ? (
+                    <div className="mt-12 bg-white rounded-lg shadow-md p-6">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                            <div>
+                                <h3 className="text-xl font-semibold text-gray-800">Admin Panel</h3>
+                                <p className="text-gray-600 mt-1">Go to admin panel see info about your teachers and students.</p>
+                            </div>
+                            <Link
+                                to={"/adminPanel"}
+                                className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors duration-200"
+                            >
+                                <span>Admin Panel</span>
+                            </Link>
+                        </div>
+                    </div>
+                ) : null}
 
                 <div className="container mx-auto px-4 py-8">
                     <h2 className="text-2xl font-bold text-gray-800 mb-6">
