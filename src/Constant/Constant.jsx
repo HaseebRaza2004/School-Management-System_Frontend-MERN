@@ -2,7 +2,7 @@
 const devUrl = "http://localhost:4000/";
 const prodUrl = "https://school-management-system-backend-mern.onrender.com/";
 
-export const BASE_URL = devUrl;
+export const BASE_URL = prodUrl;
 
 export const ApiRoutes = {
     // users
